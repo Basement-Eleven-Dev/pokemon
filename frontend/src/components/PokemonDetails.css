@@ -1,0 +1,85 @@
+.pokemon-details {
+    text-align: center;
+  }
+  
+  .search-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .search-container input {
+    padding: 10px;
+    border: 2px solid #2a75bb;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+  }
+  
+  .search-container button {
+    padding: 10px;
+    background-color: #2a75bb;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .search-container button:hover {
+    background-color: #1b4a7a;
+  }
+  
+  .pokemon-sprite, .official-artwork {
+    max-width: 150px;
+    margin: 10px;
+  }
+  
+  /* Stile per la barra di progressione */
+.stat-bar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .stat-name {
+    width: 120px;
+    font-weight: bold;
+    text-transform: capitalize;
+  }
+  
+  .stat-progress {
+    flex: 1;
+    height: 20px;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 10px;
+  }
+  
+  .stat-fill {
+    height: 100%;
+    background-color: #3D7DCA; /* Colore della barra */
+    border-radius: 10px;
+    transition: width 0.3s ease;
+  }
+  
+  .stat-value {
+    width: 40px;
+    text-align: right;
+    font-weight: bold;
+  }
+
+  @keyframes fillAnimation {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+  
+  .stat-fill {
+    animation: fillAnimation 0.5s ease-out;
+  }

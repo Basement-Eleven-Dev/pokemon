@@ -1,0 +1,31 @@
+/* Contenitore della lista */
+.list-container {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: transparent; /* Rimuovi lo sfondo */
+    border-radius: 0; /* Rimuovi il bordo arrotondato */
+    box-shadow: none; /* Rimuovi l'ombra */
+}
+  
+  /* Ogni elemento della lista */
+  .pokemon-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 0;
+    font-size: 16px;
+  }
+  
+  /* Sprite Generation IX */
+  .pokemon-sprite {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+  }
+  
+  /* Icona se il Pokémon non ha sprite */
+  .no-sprite {
+    color: red;
+    font-size: 20px;
+  }
+  

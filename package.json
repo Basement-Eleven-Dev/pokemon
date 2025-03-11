@@ -17,5 +17,13 @@
   "bugs": {
     "url": "https://github.com/Ago95Dev/b11-pokemon-api/issues"
   },
-  "homepage": "https://github.com/Ago95Dev/b11-pokemon-api#readme"
+  "homepage": "https://github.com/Ago95Dev/b11-pokemon-api#readme",
+  "dependencies": {
+    "@chakra-ui/react": "^3.12.0",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "framer-motion": "^12.5.0",
+    "prop-types": "^15.8.1",
+    "react-router-dom": "^7.3.0"
+  }
 }

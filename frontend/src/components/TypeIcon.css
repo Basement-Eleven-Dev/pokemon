@@ -1,0 +1,36 @@
+/* Container del tipo */
+.type-icon-container {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 6px 10px;
+    margin: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .type-icon-container:hover {
+    transform: scale(1.1);
+  }
+  
+  /* Immagine dell'icona del tipo */
+  .type-icon {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+  }
+  
+  /* Testo di fallback se l'icona non è disponibile */
+  .fallback-type {
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    text-transform: capitalize;
+    padding: 4px 8px;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+  

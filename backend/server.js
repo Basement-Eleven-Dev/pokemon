@@ -59,31 +59,22 @@ app.get('/type/:type', async (req, res) => {
   }
 });
 
-// Endpoint per ottenere la catena evolutiva di un Pokémon
 app.get('/evolution/:name', async (req, res) => {
   const { name } = req.params;
   try {
-    // 1. Recupera le informazioni sulla specie del Pokémon
     const speciesResponse = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${name.toLowerCase()}`);
-    const evolutionChainUrl = speciesResponse.data.evolution_chain.url;
-    
-    // 2. Recupera la catena evolutiva usando l'URL ottenuto
-    const evolutionResponse = await axios.get(evolutionChainUrl);
-    
-    // 3. Processa la catena evolutiva
-    const evolutionChain = [];
-    let currentEvolution = evolutionResponse.data.chain;
-    
-    // Cicla attraverso la catena evolutiva (prendendo la prima evoluzione ad ogni step)
-    while (currentEvolution) {
-      evolutionChain.push(currentEvolution.species.name);
-      if (currentEvolution.evolves_to.length > 0) {
-        currentEvolution = currentEvolution.evolves_to[0];
-      } else {
-        currentEvolution = null;
+    const evolutionResponse = await axios.get(speciesResponse.data.evolution_chain.url);
+
+    // Funzione ricorsiva per esplorare tutte le ramificazioni
+    const extractEvolutionChain = (chain) => {
+      const evolutions = [chain.species.name];
+      for (const evolution of chain.evolves_to) {
+        evolutions.push(...extractEvolutionChain(evolution));
       }
-    }
-    
+      return evolutions;
+    };
+
+    const evolutionChain = extractEvolutionChain(evolutionResponse.data.chain);
     res.json({ evolutionChain });
   } catch (error) {
     res.status(404).json({ error: `Evolution chain not found for ${name}` });

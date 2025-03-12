@@ -83,3 +83,78 @@
   .stat-fill {
     animation: fillAnimation 0.5s ease-out;
   }
+
+  .stat-bar {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .stat-name {
+    margin-right: 10px;
+    font-weight: bold;
+    width: 100px; /* Mantieni una larghezza fissa per il nome della statistica */
+  }
+  
+  .stat-progress {
+    position: relative;
+    width: 200px; /* Imposta una larghezza fissa per la barra */
+    height: 8px; /* Riduci l'altezza della barra per renderla più sottile */
+    background-color: #e0e0e0; /* Colore di sfondo per la barra */
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .stat-fill {
+    height: 100%; /* La barra riempie tutta l'altezza della progress bar */
+    background-color: #4caf50; /* Colore della barra, che verrà sovrascritto da getStatColor */
+    transition: width 0.3s ease-in-out;
+  }
+  
+  .stat-value {
+    margin-left: 10px;
+    font-weight: bold;
+    min-width: 40px; /* Imposta una larghezza minima per i valori numerici */
+    text-align: right;
+  }
+  
+  .type-defenses {
+    margin-top: 20px;
+  }
+  
+  .type-defenses table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .type-defenses th, .type-defenses td {
+    padding: 8px 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+  }
+  
+  .type-defenses th {
+    background-color: #f5f5f5;
+  }
+  
+  .type-defenses td {
+    font-weight: bold;
+  }
+  
+  .type-defenses .fourx {
+    color: red;
+    font-size: 1.2em;
+  }
+  
+  .type-defenses .twox {
+    color: orange;
+  }
+  
+  .type-defenses .half {
+    color: #ffcc00;
+  }
+  
+  .type-defenses .zero {
+    color: #9e9e9e;
+  }
+  

@@ -1,77 +1,43 @@
-// src/components/PokemonByType.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import TypeIcon from './TypeIcon';
 import './PokemonByType.css';
 
-/**
- * Componente per cercare i Pokémon per tipo
- *
- * Mostra un campo di testo per l'utente di inserire il tipo di Pokémon
- * e un pulsante per eseguire la ricerca.
- *
- * Se la ricerca va a buon fine, mostra la lista dei Pokémon del tipo
- * insieme all'icona del tipo e ai rispettivi sprite.
- *
- * Se la ricerca non va a buon fine, mostra un messaggio di errore.
- */
-const PokemonByType = () => {
-  const [type, setType] = useState('');
-  const [pokemonList, setPokemonList] = useState([]);
-  const [error, setError] = useState('');
-  const [typeSprite, setTypeSprite] = useState('');
-  const [pokemonSprites, setPokemonSprites] = useState({}); // Memorizza gli ID per gli sprite
+// Funzione per estrarre l'ID del Pokémon dalla URL
+const getPokemonIdFromUrl = (url) => {
+  const parts = url.split('/').filter(Boolean);
+  return parts[parts.length - 1];
+};
 
-/**
- * Fetches and updates the list of Pokémon for a specified type along with their type icon and sprite IDs.
- *
- * 1. Fetches the list of Pokémon names for the given type from a local server and updates the state.
- * 2. Fetches the type icon from the official Pokémon API and updates the state.
- * 3. Fetches the IDs for each Pokémon to construct their sprite URLs and updates the state.
- *
- * In case of an error during fetching, it logs the error and updates the state with an error message,
- * while resetting the Pokémon list, type icon, and sprite data.
- */
+const PokemonByType = () => {
+  const [searchType, setSearchType] = useState('');
+  const [typeData, setTypeData] = useState(null);
+  const [error, setError] = useState('');
+  const [typeSuggestions, setTypeSuggestions] = useState([]);
+
+  useEffect(() => {
+    // Recupera la lista dei tipi dalla PokeAPI
+    const fetchTypes = async () => {
+      try {
+        const response = await axios.get('https://pokeapi.co/api/v2/type');
+        setTypeSuggestions(response.data.results.map(t => t.name));
+      } catch (err) {
+        console.error('Errore nel caricamento dei tipi', err);
+      }
+    };
+    fetchTypes();
+  }, []);
 
   const handleSearch = async () => {
+    if (!searchType) return;
     try {
-      // 1️⃣ Recupera la lista di Pokémon per tipo
-      const response = await axios.get(`http://localhost:3001/type/${type.toLowerCase()}`);
-      const pokemonNames = response.data.pokemon;
-      setPokemonList(pokemonNames);
+      const response = await axios.get(`https://pokeapi.co/api/v2/type/${searchType.toLowerCase()}`);
+      setTypeData(response.data);
       setError('');
-
-      // 2️⃣ Recupera l'icona del tipo
-      const typeResponse = await axios.get(`https://pokeapi.co/api/v2/type/${type.toLowerCase()}`);
-      const spriteUrl = typeResponse.data.sprites?.["generation-viii"]?.["sword-shield"]?.name_icon || '';
-      setTypeSprite(spriteUrl);
-
-      // 3️⃣ Recupera gli ID per gli sprite
-      const spriteRequests = pokemonNames.map(async (pokemon) => {
-        try {
-          const pokeResponse = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemon.toLowerCase()}`);
-          const pokemonId = pokeResponse.data.id;
-          return { name: pokemon, id: pokemonId };
-        } catch (err) {
-          console.error(`Error fetching ID for ${pokemon}:`, err);
-          return { name: pokemon, id: null };
-        }
-      });
-
-      // Risolviamo tutte le richieste
-      const spriteResults = await Promise.all(spriteRequests);
-      const spriteMap = spriteResults.reduce((acc, { name, id }) => {
-        acc[name] = id ? `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png` : null;
-        return acc;
-      }, {});
-
-      setPokemonSprites(spriteMap);
     } catch (err) {
-      console.error(`Error fetching data for type ${type}:`, err);
-      setError(`Type "${type}" not found`);
-      setPokemonList([]);
-      setTypeSprite('');
-      setPokemonSprites({});
+      console.error(err);
+      setError('Tipo non trovato');
+      setTypeData(null);
     }
   };
 
@@ -79,32 +45,42 @@ const PokemonByType = () => {
     <div className="pokemon-by-type">
       <h2>Pokémon by Type</h2>
       <div className="search-container">
-        <input 
+        <input
           type="text"
-          value={type}
-          onChange={(e) => setType(e.target.value)}
-          placeholder="Enter Pokémon Type"
+          value={searchType}
+          onChange={(e) => setSearchType(e.target.value)}
+          placeholder="Inserisci il tipo"
+          list="type-suggestions"
+          className="search-input"
         />
-        <button onClick={handleSearch}>Search</button>
-      </div>
-
-      {error && <p className="error">{error}</p>}
-
-      {/* Mostra la lista dei Pokémon per tipo con sprite */}
-      {pokemonList.length > 0 && (
-        <div className="list-container">
-          <h3>{type[0].toUpperCase() + type.slice(1).toLowerCase()} type Pokémon:</h3>
-          <ul>
-            {pokemonList.map((pokemon, index) => (
-              <li key={index} className="pokemon-item">
-                {pokemonSprites[pokemon] ? (
-                  <img src={pokemonSprites[pokemon]} alt={pokemon} className="pokemon-sprite" />
-                ) : (
-                  <span className="no-sprite">❌</span> // Se non esiste lo sprite
-                )}
-                {pokemon}
-              </li>
+        <button onClick={handleSearch} className="search-button">Search</button>
+        <datalist id="type-suggestions">
+          {typeSuggestions
+            .filter(type => type.includes(searchType.toLowerCase()))
+            .map((type, index) => (
+              <option key={index} value={type} />
             ))}
+        </datalist>
+      </div>
+      {error && <p className="error">{error}</p>}
+      {typeData && (
+        <div className="type-details">
+          <div className="type-header">
+            <TypeIcon typeName={typeData.name} />
+            <h3>{typeData.name[0].toUpperCase() + typeData.name.slice(1)}</h3>
+          </div>
+          <p><strong>Numero di Pokémon:</strong> {typeData.pokemon.length}</p>
+          <ul className="pokemon-list">
+            {typeData.pokemon.map((entry, index) => {
+              const id = getPokemonIdFromUrl(entry.pokemon.url);
+              const spriteUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
+              return (
+                <li key={index} className="pokemon-item">
+                  <img src={spriteUrl} alt={entry.pokemon.name} className="pokemon-sprite" />
+                  <span>{entry.pokemon.name}</span>
+                </li>
+              );
+            })}
           </ul>
         </div>
       )}

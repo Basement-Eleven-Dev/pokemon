@@ -1,4 +1,4 @@
-/* Stili globali per l'app */
+/* Stili globali */
 .App {
   font-family: 'Arial', sans-serif;
   text-align: center;
@@ -9,27 +9,77 @@ header {
   margin-bottom: 20px;
 }
 
-nav {
+/* NAVIGAZIONE */
+.nav-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px; /* Distanza uniforme tra i bottoni */
   margin-bottom: 20px;
 }
 
-nav button {
-  margin: 0 10px;
+.nav-container button {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Spazio tra sprite e testo */
   padding: 8px 16px;
-  border: none;
-  background-color: #cccccc;
+  border: 2px solid #3b4cca;
   border-radius: 4px;
+  background-color: transparent;
+  color: #3b4cca;
+  font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-nav button.active {
-  background-color: #4caf50;
-  color: white;
+.nav-container button.active,
+.nav-container button:hover {
+  background-color: #3b4cca;
+  color: #ffffff;
 }
 
-nav button:hover {
-  background-color: #256ac4;
+.button-sprite {
+  width: 24px;
+  height: 24px;
+}
+
+/* SEARCH BAR E BUTTON */
+.search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.search-input {
+  border: 2px solid #3b4cca;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.search-input:focus {
+  border-color: #ffcb05;
+}
+
+.search-button {
+  background-color: transparent;
+  border: 2px solid #3b4cca;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #3b4cca;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.search-button:hover {
+  background-color: #3b4cca;
+  color: #fff;
 }
 
 main {

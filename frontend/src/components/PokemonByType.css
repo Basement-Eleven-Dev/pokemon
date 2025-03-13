@@ -1,10 +1,13 @@
 /* Contenitore della lista */
 .list-container {
+    display: flex;
+    justify-content: center;
     margin-top: 20px;
     padding: 10px;
     background-color: transparent; /* Rimuovi lo sfondo */
     border-radius: 0; /* Rimuovi il bordo arrotondato */
     box-shadow: none; /* Rimuovi l'ombra */
+    text-align: center;
 }
   
   /* Ogni elemento della lista */

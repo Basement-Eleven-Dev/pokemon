@@ -6,7 +6,8 @@ import './PokemonDetails.css';
 const getStatColor = (value) => {
   if (value < 50) return '#D32F2F'; // Rosso
   if (value < 90) return '#F57C00'; // Arancione
-  if (value < 130) return '#FBC02D'; // Giallo
+  if (value < 105) return '#FBC02D'; // Giallo
+  if (value < 120) return '#CDDC39'; // Lime
   if (value < 170) return '#7CB342'; // Verde chiaro
   return '#388E3C'; // Verde scuro
 };
@@ -32,7 +33,7 @@ const PokemonDetails = () => {
   useEffect(() => {
     const fetchPokemonNames = async () => {
       try {
-        const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=1000');
+        const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=1800');
         setSuggestions(response.data.results.map(p => p.name));
       } catch (err) {
         console.error('Errore nel caricamento dei nomi Pokémon', err);

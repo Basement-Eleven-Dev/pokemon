@@ -1,0 +1,26 @@
+# Fase di build
+FROM node:18-alpine as build
+
+WORKDIR /app
+
+# Copia i file necessari per installare le dipendenze
+COPY package*.json ./
+RUN npm install
+
+# Copia il resto dei file dell'applicazione
+COPY . .
+
+# Costruisci il progetto (per Vite, di solito genera la cartella "dist")
+RUN npm run build
+
+# Fase di runtime: usa un server Nginx per servire i file statici
+FROM nginx:alpine
+
+# Copia i file di build dalla fase precedente (usa "dist" invece di "build")
+COPY --from=build /app/dist /usr/share/nginx/html
+
+# Esponi la porta 80
+EXPOSE 80
+
+# Avvia Nginx in modalità foreground
+CMD ["nginx", "-g", "daemon off;"]

@@ -40,7 +40,6 @@ function App() {
   return (
     <div className="App">
       <header>
-        <h1>Pokémon API Project</h1>
         <nav className="nav-container">
           <button 
             onClick={() => setActiveTab('details')}

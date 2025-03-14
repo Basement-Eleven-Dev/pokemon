@@ -79,7 +79,6 @@ const PokemonDetails = () => {
 
   return (
     <div className="pokemon-details">
-      <h2>Pokémon Details</h2>
       <div className="search-container">
         <input
           type="text"

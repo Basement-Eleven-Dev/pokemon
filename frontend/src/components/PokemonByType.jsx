@@ -43,7 +43,6 @@ const PokemonByType = () => {
 
   return (
     <div className="pokemon-by-type">
-      <h2>Pokémon by Type</h2>
       <div className="search-container">
         <input
           type="text"

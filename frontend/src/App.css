@@ -1,87 +1,208 @@
-/* Stili globali */
+
+Ecco un codice CSS aggiornato e migliorato per il tuo progetto Pokedex, incorporando le classi già esistenti nel tuo CSS attuale e aggiungendo alcune nuove funzionalità per rendere l'interfaccia più moderna e responsiva:
+css
+/* ============================= /
+/ Stili Globali e Header        /
+/ ============================= */
 .App {
-  font-family: 'Arial', sans-serif;
-  text-align: center;
-  padding: 20px;
+font-family: 'Arial', sans-serif;
+text-align: center;
+padding: 20px;
+padding-top: 100px; /* spazio per il fixed header */
+background-color: #f0f4f8;
 }
-
+/* Header fisso in cima alla pagina */
 header {
-  margin-bottom: 20px;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+background-color: #333232;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+padding: 10px 20px;
+z-index: 1000;
 }
-
-/* NAVIGAZIONE */
+/* ============================= /
+/ NAVIGAZIONE                   /
+/ ============================= */
 .nav-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px; /* Distanza uniforme tra i bottoni */
-  margin-bottom: 20px;
+display: flex;
+justify-content: center;
+align-items: center;
+gap: 20px; /* Distanza uniforme tra i bottoni */
 }
-
 .nav-container button {
-  display: flex;
-  align-items: center;
-  gap: 8px; /* Spazio tra sprite e testo */
-  padding: 8px 16px;
-  border: 2px solid #3b4cca;
-  border-radius: 4px;
-  background-color: transparent;
-  color: #3b4cca;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease;
+display: flex;
+align-items: center;
+gap: 8px; /* Spazio tra sprite e testo */
+padding: 8px 16px;
+border: 2px solid #3b4cca;
+border-radius: 4px;
+background-color: transparent;
+color: #3b4cca;
+font-weight: bold;
+cursor: pointer;
+transition: background-color 0.2s ease, color 0.2s ease;
 }
-
 .nav-container button.active,
 .nav-container button:hover {
-  background-color: #3b4cca;
-  color: #ffffff;
+background-color: #3b4cca;
+color: #ffffff;
 }
-
-.button-sprite {
-  width: 24px;
-  height: 24px;
-}
-
-/* SEARCH BAR E BUTTON */
+/* ============================= /
+/ SEARCH BAR E BUTTON           /
+/ ============================= */
 .search-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  margin-top: 20px;
+display: flex;
+justify-content: center;
+align-items: center;
+gap: 10px;
+margin: 20px auto; /* Centrare la barra di ricerca */
 }
-
 .search-input {
-  border: 2px solid #3b4cca;
-  border-radius: 4px;
-  padding: 8px 16px;
-  font-size: 16px;
-  outline: none;
-  transition: border-color 0.2s ease;
+border: 2px solid #3b4cca;
+border-radius: 4px;
+padding: 8px 16px;
+font-size: 16px;
+outline: none;
+transition: border-color 0.2s ease;
+width: 300px; /* larghezza fissa per la barra di ricerca */
 }
-
 .search-input:focus {
-  border-color: #ffcb05;
+border-color: #ffcb05;
 }
-
 .search-button {
-  background-color: transparent;
-  border: 2px solid #3b4cca;
-  border-radius: 4px;
-  padding: 8px 16px;
-  font-size: 16px;
-  font-weight: bold;
-  color: #3b4cca;
-  cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease;
+background-color: #3b4cca;
+border: none;
+border-radius: 4px;
+padding: 8px 16px;
+font-size: 16px;
+color: white;
+cursor: pointer;
+transition: background-color 0.2s ease;
 }
-
 .search-button:hover {
-  background-color: #3b4cca;
-  color: #fff;
+background-color: #2a3ba5;
 }
-
+/* ============================= /
+/ MAIN                          /
+/ ============================= */
 main {
-  margin-top: 20px;
+margin-top: 20px;
+}
+.pokemon-evolution-chain {
+padding: 20px;
+text-align: center;
+}
+.pokemon-evolution-chain h2 {
+font-size: 20px;
+color: #dee0ef;
+}
+.chain-container {
+margin-top: 20px;
+text-align: left;
+display: inline-block;
+max-width: 600px;
+width: 100%;
+}
+.evolution-list {
+list-style: none;
+padding: 0;
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+gap: 20px;
+}
+.evolution-item .card {
+display: flex;
+flex-direction: column;
+align-items: center;
+background-color: #3f3f3f;
+border: 1px solid #e0e0e0;
+border-radius: 4px;
+padding: 10px;
+transition: transform 0.2s ease;
+}
+.evolution-item .card:hover {
+transform: scale(1.05);
+}
+.pokemon-sprite {
+width: 80px;
+height: 80px;
+}
+.pokemon-name {
+margin-top: 8px;
+font-size: 16px;
+font-weight: bold;
+text-transform: capitalize;
+text-align: center;
+}
+.pokemon-details {
+text-align: center;
+}
+.pokemon-sprite,
+.official-artwork {
+max-width: 150px;
+margin: 10px;
+}
+/* Stile per la barra di progressione */
+.stat-bar {
+display: flex;
+align-items: center;
+margin-bottom: 10px;
+}
+.stat-name {
+width: 120px;
+font-weight: bold;
+text-transform: capitalize;
+}
+.stat-progress {
+flex: 1;
+height: 20px;
+background-color: #e0e0e0;
+border-radius: 10px;
+overflow: hidden;
+margin: 0 10px;
+}
+.stat-fill {
+height: 100%;
+background-color: #3D7DCA; /* Colore della barra */
+border-radius: 10px;
+transition: width 0.3s ease;
+}
+.stat-value {
+width: 40px;
+text-align: right;
+font-weight: bold;
+}
+@keyframes fillAnimation {
+from {
+width: 0;
+}
+to {
+width: 100%;
+}
+}
+.stat-fill {
+animation: fillAnimation 0.5s ease-out;
+}
+/* Responsive Design */
+@media (max-width: 768px) {
+.search-container {
+flex-direction: column;
+}
+.search-input {
+width: 100%; /* La barra di ricerca occupa il 100% */
+}
+.nav-container {
+flex-direction: column;
+}
+.nav-container button {
+width: 100%; /* Bottoni occupano il 100% */
+}
+.evolution-list {
+grid-template-columns: 1fr; /* Un solo elemento per riga */
+}
+.pokemon-sprite, .official-artwork {
+max-width: 100px; /* Dimensioni sprite ridotte su dispositivi piccoli */
+
 }
